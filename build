@@ -1794,7 +1794,7 @@ for RECIPEPATH in "${RECIPEFILES[@]}" ; do
 	shellquote rm -f "$i" >> $BUILD_ROOT/.unpack.command
 	echo >> $BUILD_ROOT/.unpack.command
 	chmod 0755 $BUILD_ROOT/.unpack.command
-	chroot $BUILD_ROOT su -c /.unpack.command - $BUILD_USER || cleanup_and_exit 1
+	nsenter --root=$BUILD_ROOT --setuid $ABUILD_UID /.unpack.command || cleanup_and_exit 1
 	rm -f $BUILD_ROOT/.unpack.command
     done
 
