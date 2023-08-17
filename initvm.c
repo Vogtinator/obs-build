@@ -135,7 +135,7 @@ enum okfail write_file_string(const char *filename, const char *string)
 		return FAIL;
 	}
 
-	if (write(fd, string, strlen(string)) == -1)
+	if (write(fd, string, strlen(string)) == -1 && errno != EEXIST)
 	{
 		perror("write");
 		fprintf(stderr, "%s: write failed\n", filename);
